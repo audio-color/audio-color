@@ -13,7 +13,6 @@
 #### Documentation
 * [api docs](http://xyz.com) (API servers)
 * [jsdoc](http://xyz.com) (Server assignments)
-* [styleguide](http://xyz.com) (React assignments)
 
 ### Modules
 #### `modulename.js`
@@ -38,9 +37,10 @@ Usage Notes or examples
   * Returns a JSON object with xyz in it.
   
 #### Tests
-* npm test to run
+* `npm test` to run
 * The home route can be accessed
 * A token will be given upon hitting the login of the OAUTH route
+* Can return currently playing track
 * The server can be accessed
 
 #### UML
