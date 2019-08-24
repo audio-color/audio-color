@@ -15,7 +15,7 @@
 * [jsdoc](http://xyz.com) (Server assignments)
 
 ### Modules
-#### `modulename.js`
+#### `index.js`
 ##### Exported Values and Methods
 
 ###### `foo(thing) -> string`
@@ -24,12 +24,36 @@ Usage Notes or examples
 ###### `bar(array) -> array`
 Usage Notes or examples
 
+
+#### `server.js`
+##### Exported Values and Methods
+
+###### `foo(thing) -> string`
+Usage Notes or examples
+
+###### `bar(array) -> array`
+Usage Notes or examples
+
+
+#### `apiRouter.js`
+##### Exported Values and Methods
+
+###### `foo(thing) -> string`
+Usage Notes or examples
+
+###### `bar(array) -> array`
+Usage Notes or examples
+
+
+
 ### Setup
 #### `.env` requirements
 * `PORT` - Port Number
-* `MONGODB_URI` - URL to the running mongo instance/db
+* `SPOTIFY_CLIENT_ID`
+* `SPOTIFY_CLIENT_SECRET`
 
 #### Running the app
+* entry point - `index.js`
 * `npm start`
 * Endpoint: `/foo/bar/`
   * Returns a JSON object with abc in it.
@@ -45,5 +69,3 @@ Usage Notes or examples
 
 #### UML
 ![UML](./assets/audio-color-uml.jpg)
-
-index is our entry point
