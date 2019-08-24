@@ -38,9 +38,12 @@ Usage Notes or examples
   * Returns a JSON object with xyz in it.
   
 #### Tests
-* How do you run tests?
-* What assertions were made?
-* What assertions need to be / should be made?
+* npm test to run
+* The home route can be accessed
+* A token will be given upon hitting the login of the OAUTH route
+* The server can be accessed
 
 #### UML
 ![UML](./assets/audio-color-uml.jpg)
+
+index is our entry point
