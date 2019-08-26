@@ -9,6 +9,7 @@ const querystring = require('querystring');
 
 const SpotifyWebApi = require('spotify-web-api-node');
 const moodApp = require('../app.js');
+const rgbMod = require('../rgb.js');
 
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_CLIENT_ID,
@@ -89,8 +90,13 @@ function colorize(req, res) {
   return getMood()
     .then(mood => {
       let colorSet = moodApp.convertMoodToRGB(mood)
-      res.status(200).send(colorSet)
+      return colorSet;
+    }).then(color => {
+      console.log('kuler', color);
+      rgbMod(color);
+      res.status(200).send(color)
     })
+
 };
 
 const getMood = function () {

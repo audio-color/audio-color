@@ -22,18 +22,18 @@ const convertMoodToRGB = (valence) => {
   let groupOne = range(0, 4);
   let groupTwo = range(4, 7);
   let groupThree = range(7, 11);
-
+  
   if (groupOne.includes(valence)) {
-    console.log('dark blue, purple, grey');
-    return 'dark blue, purple, grey';
+    //console.log('dark blue, purple, grey');
+    return '1'; 
   }
   if (groupTwo.includes(valence)) {
-    console.log('orange, green, yellow');
-    return 'orange, green, yellow';
+    //console.log('orange, green, yellow');
+    return '2';
   }
   if (groupThree.includes(valence)) {
-    console.log('pink, light blue, red');
-    return 'pink, light blue, red';
+    //console.log('pink, light blue, red');
+    return '3'; 
   }
 };
 
