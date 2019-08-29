@@ -33,6 +33,8 @@
 * entry point - `index.js`
 * `npm start`
 * sudo node index.js
+* choose song on spotify
+* localhost:3000/colorize 
   
 #### Tests
 * `npm test` to run
