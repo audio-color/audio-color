@@ -6,7 +6,6 @@ const request = require('request');
 const express = require('express');
 const router = express.Router();
 const querystring = require('querystring');
-
 const SpotifyWebApi = require('spotify-web-api-node');
 const moodApp = require('../app.js');
 
@@ -15,10 +14,8 @@ const spotifyApi = new SpotifyWebApi({
   clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
   redirectUri: 'https://localhost:3000/callback'
 });
-
 // spotifyApi.setAccessToken();
 let redirect_uri = process.env.REDIRECT_URI || 'http://localhost:3000/callback'
-
 router.get('/', loadHome);
 router.get('/login', oauth);
 router.get('/callback', getToken);
@@ -26,7 +23,7 @@ router.get('/nowplaying', getCurrentlyPlaying);
 router.get('/colorize', colorize);
 
 let access_token = '';
-
+//spotifyApi.addListener('player_state_changed', state => { console.log(state);
 function loadHome(req, res, next) {
 
   const spotifyApi = new SpotifyWebApi({
@@ -66,7 +63,6 @@ function getToken(req, res) {
 function oauth(req, res, next) {
   const client_id = process.env.SPOTIFY_CLIENT_ID;
   const redirect_uri = 'http://localhost:3000/callback'
-
   const scope = 'user-read-private user-read-email user-read-currently-playing user-read-playback-state';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
@@ -75,12 +71,13 @@ function oauth(req, res, next) {
       scope: scope,
       redirect_uri: redirect_uri,
     }))
+    getCurrentlyPlaying();
 };
-
 function getCurrentlyPlaying(req, res, next) {
-  getMood()
+  return getMood()
     .then(mood => {
       let moodObj = { mood: mood }
+      colorize();
       res.status(200).send(moodObj);
     })
 };
@@ -88,31 +85,42 @@ function getCurrentlyPlaying(req, res, next) {
 function colorize(req, res) {
   return getMood()
     .then(mood => {
-      let colorSet = moodApp.convertMoodToRGB(mood)
-      res.status(200).send(colorSet)
+      console.log('88',mood);
+      moodApp.convertMoodToRGB(mood[0],mood[1])
+      checkSong(mood[2]);
     })
 };
 
 const getMood = function () {
   const spotifyApi = new SpotifyWebApi({
-    accessToken: 'BQDTmprkGzeyj1OkhKSooKuoPxGEP-Bp3GDUFFBBfenLK7xjW5Lcf1_D8QFrdTpmFruRmhhXujZYJSy27SDwOMISOJAmWsttPe3s7G8-ydaUlHZ4aQ1qu93vdvBTMqtkCJhihjrJglkvM83bdJ__Y4Bm7_3muOKq2PKFYz7MUHf1ufgxFV6Tj-NJ7A',
+    accessToken: 'BQA2CGl7ObAMCgANLt43xSxgngGyUBNREL58NqhP6Tus5zxA2HTGjRe_LBqWJUVFnrhlGDOM0nQi7gD6gs1HT5zfVtWEBtx2R9oDqBycMvLgJF4xmERYT0FzT6wsiBtY9eoSNJ5HJfpbju5ELYIsc99nHh-Qs2pMBzopUduKtbeauzTqGgfEBgtDdA',
   });
-
   return spotifyApi.getMyCurrentPlayingTrack()
     .then(data => {
       let id = data.body.item.id;
-      console.log('track name', data.body.item.name)
-      return spotifyApi.getAudioFeaturesForTrack(id)
+      return spotifyApi.getAudioFeaturesForTrack(id);
     }).then(data => {
       let valence = Math.round((data.body.valence * 10));
-      console.log('mood score', valence);
-      return valence;
+      let duration = data.body.duration_ms;
+      let id = data.body.id;
+      return [valence,duration,id];
     }).catch(err => {
       console.log(err);
     })
 };
 
 
-// setInterval(getMood, 5000);
+const checkSong = function(){
+  console.log('here')
+  
+   setInterval( getMood, 5000)
+   console.log(getmood)
+    // .then(data => {
+    
+    //   if(id !== data[2]){
+    //     getCurrentlyPlaying();
+    //   }
+    // })
+};
 
 module.exports = router;

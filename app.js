@@ -1,4 +1,9 @@
 'use strict';
+const temporal = require('temporal');
+const five = require('johnny-five'); 
+const raspi = require('raspi-io').RaspiIO; 
+const rgb = require('./rgb.js');
+
 
 const range = (start, end) => {
   const length = end - start;
@@ -15,7 +20,7 @@ const validateParam = function (num) {
   }
 }
 
-const convertMoodToRGB = (valence) => {
+const convertMoodToRGB = (valence,duration) => {
   
   validateParam(valence)
 
@@ -24,17 +29,21 @@ const convertMoodToRGB = (valence) => {
   let groupThree = range(7, 11);
 
   if (groupOne.includes(valence)) {
-    console.log('dark blue, purple, grey');
-    return 'dark blue, purple, grey';
+    console.log('in 1');
+    
+    rgb.rgbOne(duration);
   }
   if (groupTwo.includes(valence)) {
-    console.log('orange, green, yellow');
-    return 'orange, green, yellow';
+    console.log('in 2');
+    
+    rgb.rgbTwo(duration);
   }
   if (groupThree.includes(valence)) {
-    console.log('pink, light blue, red');
-    return 'pink, light blue, red';
+    
+    console.log('in 3');
+    
+    rgb.rgbThree(duration);
   }
 };
 
-module.exports = {range, validateParam, convertMoodToRGB}
+module.exports = {range, validateParam, convertMoodToRGB};
