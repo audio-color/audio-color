@@ -88,7 +88,7 @@ function getCurrentlyPlaying(req, res, next) {
 function colorize(req, res) {
   return getMood()
     .then(mood => {
-      let colorSet = moodApp.convertMoodToRGB(x)
+      let colorSet = moodApp.convertMoodToRGB(mood)
       res.status(200).send(colorSet)
     })
 };
