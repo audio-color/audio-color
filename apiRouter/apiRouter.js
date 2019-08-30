@@ -98,12 +98,13 @@ function colorize(req, res) {
       let colorSet = moodApp.convertMoodToRGB(mood)
       
       res.status(200).send(colorSet)
+      setInterval(colorize, 5000);
     });
 };
 
 const getMood = function () {
   const spotifyApi = new SpotifyWebApi({
-    accessToken: 'BQD49Nz729NJ9R3hfPUK66BQK7CMuh_XO8mz7RE3blP22YSj3vltuny6af7VzgsFQQHyJ0T2vNW05ECdyl8qvW-Dkgemq0njul8qKN52sXtN-bqlnj7Zqt-aPeq7oj1hMQ7NMfr0GD4HbcD3-3KIgrPGnGY_Ps_HfRvKytNAjqH8bj1xsDd6cKdrCQ',
+    accessToken: 'BQAtC4q0MxdgeQl37KLlggJCu-8agh2pM_g6rUiKqCClL5UUosPdF7OkMj1IfPzeYafZ3uabayMFfD5FL8b5We7W481Ifg6cevLooJVcBULfzUuRrppjFdTekQhE_hVzvD79RMN0yOCPs9ENCZaPDHD3-SYOaAw6gX8V18548SDRVCbiEJwusxYUww',
   });
 
   return spotifyApi.getMyCurrentPlayingTrack()
@@ -123,15 +124,15 @@ const getMood = function () {
     })
 };
 
-//setInterval(getCurrentlyPlaying, 4000);
-function getColor() {
-  got('http://localhost:3000/colorize', { json: true }).then(response => {
-    console.log(response.body.url);
-    console.log(response.body.explanation);
-  }).catch(error => {
-    console.log(error.response.body);
-  });
-}
-//setInterval(getColor, 5000);
-
+//setInterval(getCurrentlyPlaying, 5000);
+// function getColor() {
+//   got('http://localhost:3000/colorize', { json: true }).then(response => {
+//     console.log(response);
+//     //console.log(response.body.explanation);
+//   }).catch(error => {
+//     console.log(error.response.body);
+//   });
+// }
+// setInterval(getColor, 10000);
+colorize();
 module.exports = router;

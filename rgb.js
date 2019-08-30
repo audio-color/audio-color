@@ -52,6 +52,32 @@ const rgbOne = function(duration) {
         led.color("40004D");
       }
     
+  }, {
+    wait: 1500,
+    task: function() {
+      led.color("B30077");
+    }
+  }, {
+    wait: 1500,
+    task: function() {
+      led.intensity(100);
+    }
+  }, {
+    wait: 1500,
+    task: function() {
+      led.color("80002A");
+    }
+  }, {
+    wait: 1500,
+    task: function() {
+      led.intensity(80);
+    }
+  }, {
+    wait: 1500,
+    task: function() {
+      led.color("40004D");
+    }
+    
     }, ]);
   });  
 }
@@ -126,6 +152,56 @@ const rgbTwo = function(duration) {
       task: function() {
         led.intensity(80);
       }
+    }, {
+      wait: 800,
+      task: function() {
+        led.color("00B3B3");
+      }
+    }, {
+      wait: 1500,
+      task: function() {
+        led.intensity(100);
+      }
+    }, {
+      wait: 800,
+      task: function() {
+        led.color("00264D");
+      }
+    }, {
+      wait: 1500,
+      task: function() {
+        led.intensity(80);
+      }
+    }, {
+      wait: 800,
+      task: function() {
+        led.color("009919");
+      }
+    }, {
+      wait: 1500,
+      task: function() {
+        led.intensity(80);
+      }
+    }, {
+      wait: 800,
+      task: function() {
+        led.color("4DE1FF");
+      }
+    }, {
+      wait: 1500,
+      task: function() {
+        led.intensity(80);
+      }
+    }, {
+      wait: 800,
+      task: function() {
+        led.color("006600");
+      }
+    }, {
+      wait: 1500,
+      task: function() {
+        led.intensity(80);
+      }
     }, ]);
     
     
@@ -169,6 +245,56 @@ const rgbThree = function(duration) {
       wait: 500,
       task: function() {
         led.color("CCCC00");
+      }
+    }, {
+      wait: 1000,
+      task: function() {
+        led.intensity(50);
+      }
+    }, {
+      wait: 500,
+      task: function() {
+        led.color("CC0000");
+      }
+    }, {
+      wait: 1000,
+      task: function() {
+        led.intensity(100);
+      }
+    }, {
+      wait: 800,
+      task: function() {
+        led.color("CC0000");
+      }
+    }, {
+      wait: 1000,
+      task: function() {
+        led.intensity(90);
+      }
+    }, {
+      wait: 500,
+      task: function() {
+        led.color("993300");
+      }
+    }, {
+      wait: 1000,
+      task: function() {
+        led.intensity(80);
+      }
+    }, {
+      wait: 500,
+      task: function() {
+        led.color("993300");
+      }
+    }, {
+      wait: 1000,
+      task: function() {
+        led.intensity(100);
+      }
+    }, {
+      wait: 500,
+      task: function() {
+        led.color("CC0000");
       }
     }, {
       wait: 1000,
