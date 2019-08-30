@@ -95,7 +95,7 @@ function colorize(req, res) {
 
 const getMood = function () {
   const spotifyApi = new SpotifyWebApi({
-    accessToken: 'BQDTmprkGzeyj1OkhKSooKuoPxGEP-Bp3GDUFFBBfenLK7xjW5Lcf1_D8QFrdTpmFruRmhhXujZYJSy27SDwOMISOJAmWsttPe3s7G8-ydaUlHZ4aQ1qu93vdvBTMqtkCJhihjrJglkvM83bdJ__Y4Bm7_3muOKq2PKFYz7MUHf1ufgxFV6Tj-NJ7A',
+    accessToken: 'BQC_zioQ6FOGH5AAZhOlNZf393N07syzOM0PxtM0ArCoyBZJpxbG90KUPicHtC4w-Ltsx6LkVrSFPHkEYq5vGqX5ura8v0Pvl81qoJh1RF2ibV-Now_UcI-LF6I9dSaMDKlyP9_dMyTCQ3nQwtjj1y5YxgqM5wfdsx4AZto4KCplpn7qUgNCKYT3fg',
   });
 
   return spotifyApi.getMyCurrentPlayingTrack()
@@ -112,6 +112,6 @@ const getMood = function () {
     })
 };
 
-// setInterval(getMood, 5000);
+//setInterval(getMood, 3000);
 
 module.exports = router;
