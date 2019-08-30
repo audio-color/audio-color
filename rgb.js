@@ -2,26 +2,28 @@
 
 const temporal = require('temporal');
 const five = require('johnny-five'); 
-const raspi = require('raspi-io').RaspiIO; 
+const Raspi = require('raspi-io').RaspiIO; 
 
 //////////////////////////////////////////////////
 
+const board = new five.Board({ 
+  io: new Raspi(), 
+});
+
+// Initialize the RGB LED
+let led = new five.Led.RGB([3, 0, 5]);
+
 const rgbOne = function(duration) {
-  
-  const board = new five.Board({ 
-    io: new raspi(), 
-  });
+
+  led.off();
   
   board.on('ready', function() {
     console.log(duration);
-    // Initialize the RGB LED
-    var led = new five.Led.RGB([3, 0, 5]);
-    
-    
-    var i = 0;
-    var j = 0;
-    var rainbow = ["B30077", "220066","80002A","40004D"]
-    var inten = [30, 60, 80, 100, 80, 70, 60, 100];
+
+    let i = 0;
+    let j = 0;
+    let rainbow = ["B30077", "220066","80002A","40004D"]
+    let inten = [30, 60, 80, 100, 80, 70, 60, 100];
     //0441fe,030089
     this.loop(1500, function() {
       
@@ -44,18 +46,15 @@ const rgbOne = function(duration) {
 
 const rgbTwo = function(duration) {
   
-  const board = new five.Board({ 
-    io: new raspi(), 
-  });
   board.on('ready', function() {
     console.log(duration);
-    // Initialize the RGB LED
-    var led = new five.Led.RGB([3,0,5]);
+
+    led.off();
     
-    var i = 0;
-    var j = 0;
-    var rainbow = ["009919","00B3B3","00264D","00E626","4DE1FF","006600"]//,"23147c","666699", "cc00ff", "130613", "4da6ff", "000099"];
-    var inten = [50, 70, 90, 80, 90, 100,80, 60,100];
+    let i = 0;
+    let j = 0;
+    let rainbow = ["009919","00B3B3","00264D","00E626","4DE1FF","006600"]//,"23147c","666699", "cc00ff", "130613", "4da6ff", "000099"];
+    let inten = [50, 70, 90, 80, 90, 100,80, 60,100];
     //fe0805,864405,== 008005,00D5FF
     this.loop(900, function() {
       
@@ -80,18 +79,15 @@ const rgbTwo = function(duration) {
 
 const rgbThree = function(duration) {
   
-  const board = new five.Board({ 
-    io: new raspi(), 
-  });
   board.on('ready', function() {
     console.log(duration);
-    // Initialize the RGB LED
-    var led = new five.Led.RGB([3, 0, 5]);
+
+    led.off();
     
-    var i = 0;
-    var j = 0;
-    var rainbow = ["CC0000","CCCC00","993300","804000"]
-    var inten = [50, 60, 70, 80, 90, 100,90, 80 ,70, 60, 50];
+    let i = 0;
+    let j = 0;
+    let rainbow = ["CC0000","CCCC00","993300","804000"]
+    let inten = [50, 60, 70, 80, 90, 100,90, 80 ,70, 60, 50];
     
     this.loop(500, function() {
       
@@ -99,15 +95,13 @@ const rgbThree = function(duration) {
         led.intensity(inten[j++]);
         console.log(i,j)
        
-      
       if (i === rainbow.length) {
         i = 0;
       }
       if (j === inten.length){
         j = 0;
       }
-      
-      
+       
     })
   });  
 }
