@@ -63,6 +63,7 @@ function getToken(req, res) {
     access_token = body.access_token
      let uri = 'http://localhost:3000/';
     res.redirect(uri + '?access_token=' + access_token);
+
   })
 };
 
@@ -72,7 +73,7 @@ function oauth(req, res, next) {
   const redirect_uri = process.env.REDIRECT_URI;
 
   const scope = 'user-read-private user-read-email user-read-currently-playing user-read-playback-state';
-  res.redirect('https://accounts.spotify.com/authorize?' +
+  res.redirect(200, 'https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
       client_id: client_id,
