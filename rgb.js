@@ -114,9 +114,3 @@ const rgbThree = function(duration) {
 // }
 
 module.exports = {rgbOne, rgbTwo, rgbThree, temporal, five, raspi};
-
-
-
-
-
-
