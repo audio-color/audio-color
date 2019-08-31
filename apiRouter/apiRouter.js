@@ -5,11 +5,18 @@ require('dotenv').config();
 const request = require('request');
 const express = require('express');
 const router = express.Router();
-
-
 const querystring = require('querystring');
+
 const SpotifyWebApi = require('spotify-web-api-node');
 const moodApp = require('../app.js');
+
+const spotifyApi = new SpotifyWebApi({
+  clientId: process.env.SPOTIFY_CLIENT_ID,
+  clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+  redirectUri: 'https://localhost:3000/callback'
+});
+
+let redirect_uri = process.env.REDIRECT_URI || 'http://localhost:3000/callback';
 
 router.get('/', loadHome);
 router.get('/login', oauth);
@@ -17,15 +24,13 @@ router.get('/callback', getToken);
 router.get('/nowplaying', getCurrentlyPlaying);
 router.get('/colorize', colorize);
 
-/**
- * 
- * @param {*} req 
- * @param {*} res 
- * If user is logged in, returns
- * json object with spotify profile
- * information
- */
-function loadHome(req, res) {
+let access_token = '';
+
+function loadHome(req, res, next) {
+
+  const spotifyApi = new SpotifyWebApi({
+    accessToken: access_token,
+  });
 
   return spotifyApi.getMe()
     .then(me => {
@@ -34,15 +39,6 @@ function loadHome(req, res) {
     .catch(console.error);
 };
 
-/**
- * 
- * @param {*} req 
- * @param {*} res 
- * this function performs a POST to
- * the spotify api/token url and
- * redirects to the home route with
- * a new access token
- */
 function getToken(req, res) {
   let code = req.query.code || null;
   let authOptions = {
@@ -53,7 +49,7 @@ function getToken(req, res) {
       grant_type: 'authorization_code'
     },
     headers: {
-      'Authorization': 'Basic ' + (new Buffer(
+      'Authorization': 'Basic ' + (new Buffer.from(
         process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET
       ).toString('base64'))
     },
@@ -61,18 +57,18 @@ function getToken(req, res) {
   }
   request.post(authOptions, function (error, response, body) {
     access_token = body.access_token
-     let uri = 'http://localhost:3000/';
-    res.redirect(uri + '?access_token=' + access_token);
+
+    let uri = process.env.FRONTEND_URI || 'http://localhost:3000/'
+    res.redirect(200, uri + '?access_token=' + access_token)
   })
 };
 
-
 function oauth(req, res, next) {
   const client_id = process.env.SPOTIFY_CLIENT_ID;
-  const redirect_uri = process.env.REDIRECT_URI;
+  const redirect_uri = 'http://localhost:3000/callback'
 
   const scope = 'user-read-private user-read-email user-read-currently-playing user-read-playback-state';
-  res.redirect('https://accounts.spotify.com/authorize?' +
+  res.redirect(200, 'https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
       client_id: client_id,
@@ -81,15 +77,7 @@ function oauth(req, res, next) {
     }))
 };
 
-/**
- * 
- * @param {*} req 
- * @param {*} res 
- * runs getMood function and
- * sends response as a single
- * object
- */
-function getCurrentlyPlaying(req, res) {
+function getCurrentlyPlaying(req, res, next) {
   getMood()
     .then(mood => {
       let moodObj = { mood: mood }
@@ -97,14 +85,6 @@ function getCurrentlyPlaying(req, res) {
     });
 };
 
-/**
- * 
- * @param {*} req 
- * @param {*} res 
- * runs getMood function, passes
- * its return value into the convertMoodToRGB
- * function and sends the result
- */
 function colorize(req, res) {
   return getMood()
     .then(mood => {
@@ -113,12 +93,7 @@ function colorize(req, res) {
     });
 };
 
-/**
- * makes multiple calls to the spotify
- * api in order to retrieve the value of the valence
- */
-function getMood() {
-
+const getMood = function () {
   const spotifyApi = new SpotifyWebApi({
     accessToken: process.env.ACCESS_TOKEN,
   });
@@ -126,7 +101,7 @@ function getMood() {
   return spotifyApi.getMyCurrentPlayingTrack()
     .then(data => {
       let id = data.body.item.id;
-      console.log('track name', data.body.item.name);
+      console.log('track name', data.body.item.name)
       return spotifyApi.getAudioFeaturesForTrack(id)
     }).then(data => {
       let valence = Math.round((data.body.valence * 10));
@@ -137,6 +112,7 @@ function getMood() {
     })
 };
 
-// setInterval(getMood, 5000);
+
+setInterval(getMood, 3000);
 
 module.exports = router;

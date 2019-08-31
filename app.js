@@ -1,5 +1,5 @@
 'use strict';
-const rgb = require('./rgb.js');
+// const rgb = require('./rgb.js');
 
 /**
  * 
@@ -28,7 +28,7 @@ const validateParam = function (num) {
     console.log('good value', num)
     return true;
   }
-}
+};
 
 /**
  * 
@@ -47,15 +47,15 @@ const convertMoodToRGB = (valence) => {
 
   if (groupOne.includes(valence)) {
     console.log('group one');
-    rgb.rgbOne()
+    // rgb.rgbOne()
   }
   if (groupTwo.includes(valence)) {
     console.log('group two');
-    rgb.rgbTwo()
+    // rgb.rgbTwo()
   }
   if (groupThree.includes(valence)) {
     console.log('group three');
-    rgb.rgbThree()
+    // rgb.rgbThree()
   }
 };
 
