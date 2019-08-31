@@ -45,11 +45,11 @@ const rgbOne = function(duration) {
 ///////////////////////////////////////////
 
 const rgbTwo = function(duration) {
+
+  led.off();
   
   board.on('ready', function() {
     console.log(duration);
-
-    led.off();
     
     let i = 0;
     let j = 0;
@@ -78,12 +78,12 @@ const rgbTwo = function(duration) {
 ////////////////////////////////////////////////
 
 const rgbThree = function(duration) {
+
+  led.off();
   
   board.on('ready', function() {
     console.log(duration);
 
-    led.off();
-    
     let i = 0;
     let j = 0;
     let rainbow = ["CC0000","CCCC00","993300","804000"]
