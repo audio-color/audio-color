@@ -1,0 +1,9 @@
+{
+  "source": {
+    "include" : ["./src", "./apiRouter", "./app.js"]
+  },
+  "opts": {
+    "destination": "./docs/",
+    "recurse": true
+  }
+}

@@ -18,7 +18,6 @@ const spotifyApi = new SpotifyWebApi({
   redirectUri: 'https://localhost:3000/callback'
 });
 
-// spotifyApi.setAccessToken();
 let redirect_uri = process.env.REDIRECT_URI || 'http://localhost:3000/callback';
 
 router.get('/', loadHome);
@@ -52,7 +51,7 @@ function getToken(req, res) {
       grant_type: 'authorization_code'
     },
     headers: {
-      'Authorization': 'Basic ' + (new Buffer(
+      'Authorization': 'Basic ' + (new Buffer.from(
         process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET
       ).toString('base64'))
     },
@@ -63,7 +62,6 @@ function getToken(req, res) {
 
     let uri = process.env.FRONTEND_URI || 'http://localhost:3000/'
     res.redirect(200, uri + '?access_token=' + access_token)
-
 
   })
 };
@@ -104,7 +102,7 @@ function colorize(req, res) {
 
 const getMood = function () {
   const spotifyApi = new SpotifyWebApi({
-    accessToken: 'BQAtC4q0MxdgeQl37KLlggJCu-8agh2pM_g6rUiKqCClL5UUosPdF7OkMj1IfPzeYafZ3uabayMFfD5FL8b5We7W481Ifg6cevLooJVcBULfzUuRrppjFdTekQhE_hVzvD79RMN0yOCPs9ENCZaPDHD3-SYOaAw6gX8V18548SDRVCbiEJwusxYUww',
+    accessToken: process.env.ACCESS_TOKEN,
   });
 
   return spotifyApi.getMyCurrentPlayingTrack()
@@ -124,15 +122,7 @@ const getMood = function () {
     })
 };
 
-//setInterval(getCurrentlyPlaying, 5000);
-// function getColor() {
-//   got('http://localhost:3000/colorize', { json: true }).then(response => {
-//     console.log(response);
-//     //console.log(response.body.explanation);
-//   }).catch(error => {
-//     console.log(error.response.body);
-//   });
-// }
-// setInterval(getColor, 10000);
-colorize();
+
+setInterval(getMood, 3000);
+
 module.exports = router;
