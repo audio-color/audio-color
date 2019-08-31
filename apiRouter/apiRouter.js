@@ -5,10 +5,12 @@ require('dotenv').config();
 const request = require('request');
 const express = require('express');
 const router = express.Router();
-const querystring = require('querystring');
+const querystring = require('querystring'); 
 
 const SpotifyWebApi = require('spotify-web-api-node');
 const moodApp = require('../app.js');
+const got = require('got');
+
 
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_CLIENT_ID,
@@ -60,6 +62,7 @@ function getToken(req, res) {
 
     let uri = process.env.FRONTEND_URI || 'http://localhost:3000/'
     res.redirect(200, uri + '?access_token=' + access_token)
+
   })
 };
 
@@ -81,7 +84,9 @@ function getCurrentlyPlaying(req, res, next) {
   getMood()
     .then(mood => {
       let moodObj = { mood: mood }
+      
       res.status(200).send(moodObj);
+      
     });
 };
 
@@ -89,7 +94,9 @@ function colorize(req, res) {
   return getMood()
     .then(mood => {
       let colorSet = moodApp.convertMoodToRGB(mood)
+      
       res.status(200).send(colorSet)
+      setInterval(colorize, 5000);
     });
 };
 
@@ -99,14 +106,17 @@ const getMood = function () {
   });
 
   return spotifyApi.getMyCurrentPlayingTrack()
+  
     .then(data => {
       let id = data.body.item.id;
       console.log('track name', data.body.item.name)
       return spotifyApi.getAudioFeaturesForTrack(id)
     }).then(data => {
+      
       let valence = Math.round((data.body.valence * 10));
       console.log('mood score', valence);
       return valence;
+      
     }).catch(err => {
       console.log(err);
     })

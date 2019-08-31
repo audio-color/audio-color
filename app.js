@@ -1,5 +1,6 @@
-'use strict';
-// const rgb = require('./rgb.js');
+"use strict";
+
+const rgb = require('./rgb.js');
 
 /**
  * 
@@ -11,7 +12,7 @@
 const range = (start, end) => {
   const length = end - start;
   return Array.from({ length }, (_, i) => start + i);
-}
+};
 
 /**
  * 
@@ -37,9 +38,9 @@ const validateParam = function (num) {
  * returns rgb function according to which
  * group valence falls in 
  */
-const convertMoodToRGB = (valence) => {
 
-  validateParam(valence)
+const convertMoodToRGB = valence => {
+  validateParam(valence);
 
   let groupOne = range(0, 4);
   let groupTwo = range(4, 7);
@@ -59,4 +60,4 @@ const convertMoodToRGB = (valence) => {
   }
 };
 
-module.exports = {range, validateParam, convertMoodToRGB};
+module.exports = { range, validateParam, convertMoodToRGB };
