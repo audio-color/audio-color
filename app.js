@@ -1,5 +1,5 @@
 "use strict";
-// const rgb = require('./rgb.js');
+const rgb = require('./rgb.js');
 
 const range = (start, end) => {
   const length = end - start;
@@ -24,18 +24,18 @@ const convertMoodToRGB = valence => {
   let groupTwo = range(4, 7);
   let groupThree = range(7, 11);
 
-  // if (groupOne.includes(valence)) {
-  //   console.log('group one');
-  //   rgb.rgbOne()
-  // }
-  // if (groupTwo.includes(valence)) {
-  //   console.log('group two');
-  //   rgb.rgbTwo()
-  // }
-  // if (groupThree.includes(valence)) {
-  //   console.log('group three');
-  //   rgb.rgbThree()
-  // }
+  if (groupOne.includes(valence)) {
+    console.log('group one');
+    rgb.rgbOne()
+  }
+  if (groupTwo.includes(valence)) {
+    console.log('group two');
+    rgb.rgbTwo()
+  }
+  if (groupThree.includes(valence)) {
+    console.log('group three');
+    rgb.rgbThree()
+  }
 };
 
 module.exports = { range, validateParam, convertMoodToRGB };
