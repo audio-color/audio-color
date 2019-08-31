@@ -10,7 +10,7 @@
 * [back-end](http://xyz.com)
 
 #### Documentation
-* [api docs](http://xyz.com) (API servers)
+* [Spotify api docs](https://developer.spotify.com/documentation/web-api/) 
 * [jsdoc](http://xyz.com) (Server assignments)
 
 ### Modules
@@ -23,6 +23,9 @@
 #### `apiRouter.js`
 ##### Exported Values and Methods
 
+#### `rgb.js`
+##### Exported Values and Methods
+
 ### Setup
 #### `.env` requirements
 * `PORT` - 3000
@@ -32,7 +35,7 @@
 #### Running the app
 * entry point - `index.js`
 * `npm start`
-* sudo node index.js
+* node index.js
 * choose song on spotify
 * localhost:3000/colorize 
   
@@ -42,6 +45,9 @@
 * A token will be given upon hitting the login of the OAUTH route
 * Can return currently playing track
 * The server can be accessed
+* The colorized route can be accessed
+* Range function works
+* Can valdiate parameters
 
 #### UML
 ![UML](./assets/audio-color-uml.jpg)
